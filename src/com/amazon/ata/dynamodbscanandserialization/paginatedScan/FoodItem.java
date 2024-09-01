@@ -3,6 +3,10 @@ package com.amazon.ata.dynamodbscanandserialization.paginatedScan;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @DynamoDBTable(tableName = "FoodItems")
 public class FoodItem {
@@ -58,4 +62,10 @@ public class FoodItem {
         this.inventoryRemaining = inventoryRemaining;
     }
 
+    // Method added to convert FoodItem to a key map
+    public Map<String, AttributeValue> toKeyMap() {
+        Map<String, AttributeValue> keyMap = new HashMap<>();
+        keyMap.put("id", new AttributeValue().withS(this.id)); // Assuming 'id' is a String
+        return keyMap;
+    }
 }
